@@ -1,0 +1,133 @@
+<!--
+    GUILHERME SAONCELLA DA SILVA - https://github.com/guisaoncella
+    
+    Calendário: https://github.com/GramThanos/jsCalendar
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        :root {
+            --main-bg-color: #167D7F; 
+            --main-font-color: #FFF;  
+            --shadow: rgba(0, 0, 0, 0.40) 3px 3px 5px;
+            --div-bg-color: #98d7c2;
+        }
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body{
+            background-color: var(--main-bg-color);
+        }
+
+        header{
+            font: bolder;
+            font-size: 3em;
+            font-family: sans-serif;
+            text-shadow: var(--shadow);
+            color: var(--main-font-color);
+            text-align: center;
+            margin-top: 1vw;
+        }
+
+        section{
+            width: 50vw;
+            height: max-content;
+            background-color: var(--div-bg-color);
+            margin: auto;
+            margin-top: 4vw;
+            border: #000;
+            border-radius: 3% 1%;
+            box-shadow: var(--shadow);
+            padding: 5vw;
+        }
+
+        footer{
+            color: var(--main-font-color);
+            font-size: 1.5em;
+            text-align: center;
+            text-shadow: var(--shadow);
+            margin-top: 40vh;
+            margin-bottom: 1vh;
+        }
+
+        a {
+            color: var(--main-font-color);
+            font-size: 1em;
+            text-shadow: var(--shadow);    
+        }
+        section > div{
+            width:max-content;
+            margin: auto;
+        }
+    </style>
+    <!-- jsCalendar style -->
+    <link rel="stylesheet" type="text/css" href="jsCalendar.css">
+    <!-- jsCalendar script -->
+    <script type="text/javascript" src="jsCalendar.js"></script>
+    <!-- jsCalendar language script -->
+    <script type="text/javascript" src="jsCalendar.lang.pt.js"></script>
+    
+</head>
+<body>
+    <header>
+        <div>
+            CALENDÁRIO
+        </div>
+    </header>
+
+    <section>
+        <div id="calendario"></div>
+
+        <script>
+            var calendario = jsCalendar.new("#calendario", "now", {
+                                "zeroFill": "true",
+                                "dayFormat": "DDD",
+                                "language": "pt"
+                            });
+            
+            calendario.onDateClick(function(event, date){
+                selecionar_dias(date)
+            });
+
+            let data = new Date()
+            calendario.min("01/"+(data.getMonth()+1)+"/"+data.getFullYear())
+            calendario.max("31/12/"+(data.getFullYear()+2))
+            
+            function selecionar_dias(date = new Date()){
+                calendario.clearselect()
+                data = new Date(date.toDateString())
+                let ano = data.getFullYear()
+
+                while (data.getFullYear() >= (ano - 2)){   
+                    calendario.select(data.getDate()+"/"+(data.getMonth() + 1)+"/"+data.getFullYear()) 
+                    data.setDate(data.getDate() - 3) 
+                    calendario.select(data.getDate()+"/"+(data.getMonth() + 1)+"/"+data.getFullYear())  
+                    data.setDate(data.getDate() - 1)
+                }
+
+                data = new Date(date.toDateString())
+
+                while(data.getFullYear() <= (ano + 2)){   
+                    calendario.select(data.getDate()+"/"+(data.getMonth() + 1)+"/"+data.getFullYear()) 
+                    data.setDate(data.getDate() + 1)
+                    calendario.select(data.getDate()+"/"+(data.getMonth() + 1)+"/"+data.getFullYear())
+                    data.setDate(data.getDate() + 3)
+                }
+
+            }
+        </script>
+    </section>
+    
+    <footer>
+        Guilherme Saoncella da Silva - <a href="https://github.com/guisaoncella" target="_blank">github</a>
+    </footer>
+</body>
+</html>
