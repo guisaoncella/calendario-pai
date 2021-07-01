@@ -124,6 +124,8 @@
 		.jsCalendar tbody td.jsCalendar-selected {
 			background-color: #FFFFFF;
 			border: 2px solid #ff0000;
+			color: #ff0000;
+			font-weight: bolder;
 			height: 32px;
 			line-height: 32px;
 			width: 32px;
